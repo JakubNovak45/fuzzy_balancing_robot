@@ -17,6 +17,5 @@ add list of prequsites
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Radim Kula** - *Initial work, SW, fuzzy modeling* 
+* **Jakub Novák** - *SW, fuzzy modeling* 
