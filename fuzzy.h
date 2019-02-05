@@ -17,12 +17,9 @@ typedef FIS_TYPE(*_FIS_ARR)(FIS_TYPE*, int, _FIS_ARR_OP);
 #define max(x, y) (((x) > (y)) ? (x) : (y))
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 
-// Number of inputs to the fuzzy inference system
-const int fis_gcI = 2;
-// Number of outputs to the fuzzy inference system
-const int fis_gcO = 1;
-// Number of rules to the fuzzy inference system
-const int fis_gcR = 25;
+#define fis_gcI 2
+#define fis_gcO 1
+#define fis_gcR 25
 
 FIS_TYPE g_fisInput[fis_gcI];
 FIS_TYPE g_fisOutput[fis_gcO];

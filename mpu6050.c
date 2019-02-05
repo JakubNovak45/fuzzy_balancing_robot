@@ -6,88 +6,63 @@ Includes
 //pokud chodi warningy ze nezna i2c_smbus_read_byte
 //sudo apt-get install libi2c-dev
 
-void mpu6050_init()
+void mpu6050_init(int *fd)
 {
-  int fd;
+
   char *fileName = "/dev/i2c-1";
+  int  address = 0x68;
 
-  if ((fd = open(fileName, O_RDWR)) < 0) {
-    printf("Failed to open i2c port\n");
-    exit(1);
+  if ((*fd = open(fileName, O_RDWR)) < 0) {
+      printf("Failed to open i2c port\n");
+      exit(1);
   }
 
-  if (ioctl(fd, I2C_SLAVE, SLAVE_ADRESS) < 0) {
-    printf("Unable to get bus access to talk to slave\n");
-    exit(1);
+  if (ioctl(*fd, I2C_SLAVE, address) < 0) {
+      printf("Unable to get bus access to talk to slave\n");
+      exit(1);
   }
 
-  //================= setup + power up =============================
-  i2c_smbus_write_byte_data(fd, MPU_GYRO_CONFIG, 0x00);	//gyro range 250dps
-  i2c_smbus_write_byte_data(fd, MPU_ACCEL_CONFIG, 0x00);	//acce range 2g
-  i2c_smbus_write_byte_data(fd, MPU_CONFIG, 0x06);		//filter 5Hz
-  int8_t power = i2c_smbus_read_byte_data(fd, MPU_POWER1);
-  i2c_smbus_write_byte_data(fd, MPU_POWER1, ~(1 << 6) & power);
+  int8_t power = i2c_smbus_read_byte_data(*fd, MPU_POWER1);
+  i2c_smbus_write_byte_data(*fd, MPU_POWER1, ~(1 << 6) & power);
+  printf("MPU6050 init done!\n");
 }
 
-float get_angle_x(){
-  int16_t xaccel = i2c_smbus_read_byte_data(fd, MPU_ACCEL_XHIGH) << 8 |
-  i2c_smbus_read_byte_data(fd, MPU_ACCEL_XHIGH + 1);
-  int16_t yaccel = i2c_smbus_read_byte_data(fd, MPU_ACCEL_YHIGH) << 8 |
-  i2c_smbus_read_byte_data(fd, MPU_ACCEL_YHIGH + 1);
-  int16_t zaccel = i2c_smbus_read_byte_data(fd, MPU_ACCEL_YHIGH) << 8 |
-  i2c_smbus_read_byte_data(fd, MPU_ACCEL_YHIGH + 1);
-
-  xaccel = (xaccel / 16384.0);
-  yaccel = (yaccel / 16384.0);
-  zaccel = (zaccel / 16384.0);
-  //calculate angle
-  return (180 / 3.141592) * atan (xaccel / sqrt(pow(yaccel, 2) + pow(zaccel, 2)));
-}
-float get_angle_y(){
-  int16_t xaccel = i2c_smbus_read_byte_data(fd, MPU_ACCEL_XHIGH) << 8 |
-  i2c_smbus_read_byte_data(fd, MPU_ACCEL_XHIGH + 1);
-  int16_t yaccel = i2c_smbus_read_byte_data(fd, MPU_ACCEL_YHIGH) << 8 |
-  i2c_smbus_read_byte_data(fd, MPU_ACCEL_YHIGH + 1);
-  int16_t zaccel = i2c_smbus_read_byte_data(fd, MPU_ACCEL_YHIGH) << 8 |
-  i2c_smbus_read_byte_data(fd, MPU_ACCEL_YHIGH + 1);
-
-  xaccel = (xaccel / 16384.0);
-  yaccel = (yaccel / 16384.0);
-  zaccel = (zaccel / 16384.0);
-  //calculate angle
-  return (180 / 3.141592) * atan (yaccel / sqrt(pow(xaccel, 2) + pow(zaccel, 2)));
-
+int get_raw_xaccel(int *fd){
+  int16_t xaccel = i2c_smbus_read_byte_data(*fd, MPU_ACCEL_XOUT1) << 8 |
+                   i2c_smbus_read_byte_data(*fd, MPU_ACCEL_XOUT2);
+                   printf("accel x in function: %d\n", xaccel);
+  return (int)xaccel;
 }
 
-float get_angle_z(){
-  int16_t xaccel = i2c_smbus_read_byte_data(fd, MPU_ACCEL_XHIGH) << 8 |
-  i2c_smbus_read_byte_data(fd, MPU_ACCEL_XHIGH + 1);
-  int16_t yaccel = i2c_smbus_read_byte_data(fd, MPU_ACCEL_YHIGH) << 8 |
-  i2c_smbus_read_byte_data(fd, MPU_ACCEL_YHIGH + 1);
-  int16_t zaccel = i2c_smbus_read_byte_data(fd, MPU_ACCEL_YHIGH) << 8 |
-  i2c_smbus_read_byte_data(fd, MPU_ACCEL_YHIGH + 1);
 
-  xaccel = (xaccel / 16384.0);
-  yaccel = (yaccel / 16384.0);
-  zaccel = (zaccel / 16384.0);
-  //calculate angle
-  return (180 / 3.141592) * atan (sqrt(pow(yaccel, 2) + pow(xaccel, 2)) / zaccel);
+float get_acc_angle(int *fd)
+{
+  float accX;
+  float accY;
+  float accZ;
+  float angleAccY;
+
+  int16_t xaccel = i2c_smbus_read_byte_data(*fd, MPU_ACCEL_XOUT1) << 8 |
+                   i2c_smbus_read_byte_data(*fd, MPU_ACCEL_XOUT2);
+  int16_t yaccel = i2c_smbus_read_byte_data(*fd, MPU_ACCEL_YOUT1) << 8 |
+                   i2c_smbus_read_byte_data(*fd, MPU_ACCEL_YOUT2);
+  int16_t zaccel = i2c_smbus_read_byte_data(*fd, MPU_ACCEL_ZOUT1) << 8 |
+                   i2c_smbus_read_byte_data(*fd, MPU_ACCEL_ZOUT2);
+
+  accX = ((float)xaccel) / 16384.0;
+  accY = ((float)yaccel) / 16384.0;
+  accZ = ((float)zaccel) / 16384.0;
+
+  angleAccY = atan2(accX, accZ + abs(accY)) * 360 / -2.0 / 3.14;
+  return angleAccY;
 }
 
-int16_t get_gyro_x(){
-  int16_t xgyro = i2c_smbus_read_byte_data(fd, MPU_GYRO_XHIGH) << 8 |
-  i2c_smbus_read_byte_data(fd, MPU_GYRO_XHIGH + 1);
-  return (xgyro / 131.0);
+/*
+float get_gyro_x(int *fd)
+{
+int16_t xgyro = i2c_smbus_read_byte_data(fd, MPU_GYRO_XOUT1) << 8 |
+                i2c_smbus_read_byte_data(fd, MPU_GYRO_XOUT2);
+  	gyroX = ((float)rawGyroX) / 65.5;
+    return gyroX;
 }
-
-int16_t get_gyro_y(){
-  int16_t ygyro = i2c_smbus_read_byte_data(fd, MPU_GYRO_YHIGH) << 8 |
-  i2c_smbus_read_byte_data(fd, MPU_GYRO_YHIGH + 1);
-  return (ygyro / 131.0);
-}
-
-int16_t get_gyro_z(){
-  int16_t zgyro = i2c_smbus_read_byte_data(fd, MPU_GYRO_ZHIGH) << 8 |
-  i2c_smbus_read_byte_data(fd, MPU_GYRO_ZHIGH + 1);
-  return (zgyro / 131.0);
-}
+*/

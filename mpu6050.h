@@ -12,44 +12,48 @@ GND ----->  GND (PIN 6)
 /************************************************
 Includes
 ************************************************/
-#include <unistd.h>				//Needed for I2C port
-#include <fcntl.h>				//Needed for I2C port
-#include <sys/ioctl.h>			//Needed for I2C port
-#include <linux/i2c-dev.h>		//Needed for I2C port
 #include <stdio.h>
+#include <linux/i2c-dev.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <sys/ioctl.h>
+#include <sys/types.h>
 #include <math.h>
 
 /************************************************
 Defines
 ************************************************/
-#define MPU_ACCEL_XHIGH	 	0x3B
-#define MPU_ACCEL_YHIGH	 	0x3D
-#define MPU_ACCEL_ZHIGH	 	0x3F
-#define MPU_GYRO_XHIGH 		0x43
-#define MPU_GYRO_YHIGH 		0x45
-#define MPU_GYRO_ZHIGH 		0x47
-#define MPU_POWER1 			0x6b
-#define MPU_GYRO_CONFIG		0x1B
-#define MPU_ACCEL_CONFIG 	0x1C
-#define MPU_CONFIG			0x1A
+#define MPU_ACCEL_XOUT1 0x3b
+#define MPU_ACCEL_XOUT2 0x3c
+#define MPU_ACCEL_YOUT1 0x3d
+#define MPU_ACCEL_YOUT2 0x3e
+#define MPU_ACCEL_ZOUT1 0x3f
+#define MPU_ACCEL_ZOUT2 0x40
 
-#define SLAVE_ADRESS 0x68
+#define MPU_GYRO_XOUT1 0x43
+#define MPU_GYRO_XOUT2 0x44
+#define MPU_GYRO_YOUT1 0x45
+#define MPU_GYRO_YOUT2 0x46
+#define MPU_GYRO_ZOUT1 0x47
+#define MPU_GYRO_ZOUT2 0x48
+
+#define MPU_TEMP1 0x41
+#define MPU_TEMP2 0x42
+
+#define MPU_POWER1 0x6b
+#define MPU_POWER2 0x6c
+
 /************************************************
 Global var
 ************************************************/
 
-int fd;
+
 
 /************************************************
 Function prototypes
 ************************************************/
-void mpu6050_init();
-float get_angle_x();
-float get_angle_y();
-float get_angle_z();
-int16_t get_gyro_x();
-int16_t get_gyro_y();
-int16_t get_gyro_z();
+void mpu6050_init(int *fd);
+int get_raw_xaccel(int *fd);
+float get_acc_angle(int *fd);
 
 #endif
