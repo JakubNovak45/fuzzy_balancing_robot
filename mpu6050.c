@@ -22,14 +22,16 @@ void mpu6050_init(int *fd)
       exit(1);
   }
 
+
+  i2c_smbus_write_byte_data(*fd, MPU_CONFIG, 0x06);		//filter 5Hz
   int8_t power = i2c_smbus_read_byte_data(*fd, MPU_POWER1);
   i2c_smbus_write_byte_data(*fd, MPU_POWER1, ~(1 << 6) & power);
   printf("MPU6050 init done!\n");
 }
 
 int get_raw_xaccel(int *fd){
-  int16_t xaccel = i2c_smbus_read_byte_data(*fd, MPU_ACCEL_XOUT1) << 8 |
-                   i2c_smbus_read_byte_data(*fd, MPU_ACCEL_XOUT2);
+  int16_t xaccel = i2c_smbus_read_byte_data(*fd, MPU_ACCEL_XOUT) << 8 |
+                   i2c_smbus_read_byte_data(*fd, MPU_ACCEL_XOUT + 1);
                    printf("accel x in function: %d\n", xaccel);
   return (int)xaccel;
 }
@@ -42,12 +44,12 @@ float get_acc_angle(int *fd)
   float accZ;
   float angleAccY;
 
-  int16_t xaccel = i2c_smbus_read_byte_data(*fd, MPU_ACCEL_XOUT1) << 8 |
-                   i2c_smbus_read_byte_data(*fd, MPU_ACCEL_XOUT2);
-  int16_t yaccel = i2c_smbus_read_byte_data(*fd, MPU_ACCEL_YOUT1) << 8 |
-                   i2c_smbus_read_byte_data(*fd, MPU_ACCEL_YOUT2);
-  int16_t zaccel = i2c_smbus_read_byte_data(*fd, MPU_ACCEL_ZOUT1) << 8 |
-                   i2c_smbus_read_byte_data(*fd, MPU_ACCEL_ZOUT2);
+  int16_t xaccel = i2c_smbus_read_byte_data(*fd, MPU_ACCEL_XOUT) << 8 |
+                   i2c_smbus_read_byte_data(*fd, MPU_ACCEL_XOUT + 1);
+  int16_t yaccel = i2c_smbus_read_byte_data(*fd, MPU_ACCEL_YOUT) << 8 |
+                   i2c_smbus_read_byte_data(*fd, MPU_ACCEL_YOUT + 1);
+  int16_t zaccel = i2c_smbus_read_byte_data(*fd, MPU_ACCEL_ZOUT ) << 8 |
+                   i2c_smbus_read_byte_data(*fd, MPU_ACCEL_ZOUT + 1);
 
   accX = ((float)xaccel) / 16384.0;
   accY = ((float)yaccel) / 16384.0;

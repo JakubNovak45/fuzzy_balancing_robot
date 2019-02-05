@@ -23,25 +23,17 @@ Includes
 /************************************************
 Defines
 ************************************************/
-#define MPU_ACCEL_XOUT1 0x3b
-#define MPU_ACCEL_XOUT2 0x3c
-#define MPU_ACCEL_YOUT1 0x3d
-#define MPU_ACCEL_YOUT2 0x3e
-#define MPU_ACCEL_ZOUT1 0x3f
-#define MPU_ACCEL_ZOUT2 0x40
+#define MPU_ACCEL_XOUT	0x3B
+#define MPU_ACCEL_YOUT	0x3D
+#define MPU_ACCEL_ZOUT	0x3F
 
-#define MPU_GYRO_XOUT1 0x43
-#define MPU_GYRO_XOUT2 0x44
-#define MPU_GYRO_YOUT1 0x45
-#define MPU_GYRO_YOUT2 0x46
-#define MPU_GYRO_ZOUT1 0x47
-#define MPU_GYRO_ZOUT2 0x48
+#define MPU_GYRO_XOUT	0x43
+#define MPU_GYRO_YOUT	0x45
+#define MPU_GYRO_ZOUT	0x47
 
-#define MPU_TEMP1 0x41
-#define MPU_TEMP2 0x42
-
-#define MPU_POWER1 0x6b
-#define MPU_POWER2 0x6c
+#define MPU_TEMP	0x41
+#define MPU_POWER1	0x6B
+#define MPU_CONFIG	0x1A
 
 /************************************************
 Global var
