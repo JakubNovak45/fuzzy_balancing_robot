@@ -38,23 +38,11 @@ int main()
 
 
   while(1){
-
-
-
-    }
+  }
 
 
   return 0;
 }
-
-
-
-
-
-
-
-
-
 
 
 void timer_handler (int signum)
@@ -91,7 +79,7 @@ void timer_handler (int signum)
  //do interrupt routine
 }
 
-
+// inicializace timeru
 void timer_init(int period)
 {
  struct sigaction sa;
