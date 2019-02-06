@@ -15,3 +15,7 @@ add list of prequsites
 
 * **Radim Kula** - *Initial work, SW, fuzzy modeling* 
 * **Jakub Novák** - *SW, fuzzy modeling* 
+
+## References
+
+http://www.makeproto.com/projects/fuzzy/matlab_arduino_FIST/index.php
