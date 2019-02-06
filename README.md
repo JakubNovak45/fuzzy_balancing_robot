@@ -15,7 +15,7 @@ add list of prequsites
 
 ## Authors
 
-* **Radim Kula** - *Initial work, SW, fuzzy modeling*
+* **Radim Kula** - *Initial work, SW, fuzzy modeling* - [Ambux5](https://github.com/Ambux5)
 * **Jakub Novák** - *SW, fuzzy modeling*
 
 ## References
