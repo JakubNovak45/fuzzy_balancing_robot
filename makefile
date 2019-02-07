@@ -1,5 +1,5 @@
 CC = gcc
-OBJFILES = main.o mpu6050.o fuzzy.o
+OBJFILES = main.o mpu6050.o fuzzy.o serial.o
 TARGET = output
 
 all: $(TARGET)

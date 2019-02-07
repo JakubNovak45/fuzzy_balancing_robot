@@ -7,6 +7,7 @@ Includes
 #include <ctype.h>
 #include "fuzzy.h"
 #include "mpu6050.h"
+#include "serial.h"
 #include <signal.h>
 #include <sys/time.h>
 #include <string.h>
@@ -14,32 +15,28 @@ Includes
 /************************************************
 Global var
 ************************************************/
-int fd;
+int fd, serialPort;
 float angleY;
 int acc;
 float e,de = 0;
 float t1,t2 = 0;
-
 
 /************************************************
 Function prototypes
 ************************************************/
 void timer_init(int period);
 
-
 /************************************************
 Main loop
 ************************************************/
 int main()
 {
-
   mpu6050_init(&fd);
+  serial_init(115200, "/dev/ttyACM0");
   timer_init(10000);	//10ms period
-
 
   while(1){
   }
-
 
   return 0;
 }
@@ -62,24 +59,11 @@ void timer_handler (int signum)
   printf("fuzzy in e: %f\n", e);
   printf("fuzzy in de: %f\n", de);
   printf("fuzzy out y: %f\n", y);
-
-  /*
- static int count = 0;
- count += 1;
- //printf ("timer iteration: %d\n",count);
- if(count == 100){
-   angleY = get_acc_angle(&fd);
-   printf("angleY: %f\n", angleY);
-  //printf ("tik tak\n");
-	 count = 0;
-
- }
-
- */
- //do interrupt routine
+  //send to serial
+  serial_send(y);
 }
 
-// inicializace timeru
+// timer initialization
 void timer_init(int period)
 {
  struct sigaction sa;

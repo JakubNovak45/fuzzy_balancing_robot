@@ -3,9 +3,6 @@ Includes
 ************************************************/
 #include "mpu6050.h"
 
-//pokud chodi warningy ze nezna i2c_smbus_read_byte
-//sudo apt-get install libi2c-dev
-
 void mpu6050_init(int *fd)
 {
 
@@ -35,7 +32,6 @@ int get_raw_xaccel(int *fd){
                    printf("accel x in function: %d\n", xaccel);
   return (int)xaccel;
 }
-
 
 float get_acc_angle(int *fd)
 {
