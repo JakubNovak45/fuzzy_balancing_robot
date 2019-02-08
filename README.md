@@ -9,6 +9,9 @@ Compilation: run make in root directory<br/>
 
 run: ./output
 
+## Connections
+![](images/connections.png)
+
 ### Prerequisites
 
 add list of prequsites
