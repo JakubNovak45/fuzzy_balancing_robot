@@ -11,7 +11,11 @@ Includes
 #include <signal.h>
 #include <sys/time.h>
 #include <string.h>
+#include <time.h>
+#include <stdint.h>
+//#include "rs232.h"
 
+#define BUF_SIZE 128
 /************************************************
 Global var
 ************************************************/
@@ -31,11 +35,57 @@ Main loop
 ************************************************/
 int main()
 {
-  mpu6050_init(&fd);
-  serial_init(115200, "/dev/ttyACM0");
-  timer_init(10000);	//10ms period
 
-  while(1){
+  //mpu6050_init(&fd);
+  //serial_init(19200, "/dev/ttyACM0");
+  serial_init(19200, "/dev/ttyUSB0");
+  //timer_init(10000);	//10ms period
+
+
+  struct timespec start, finish;
+  uint32_t startUsec, finishUsec;
+  uint32_t lastStart = 0;
+  int w,e = 0;
+  static const int intervalMs = 10;
+  while(1)
+  {
+      clock_gettime(CLOCK_MONOTONIC, &start);
+      startUsec = start.tv_nsec / 1000;
+
+      //kontrolni hlaska
+      if(lastStart != 0){
+        //printf("cyklus opakovan za: %lu mikrosekund\n", (startUsec - lastStart));
+      }
+      lastStart = startUsec;
+
+      //
+        //tvuj kod
+        volatile int v = 0;
+        for (int i = 0; i < 10000; i++) {
+         v++;
+        }
+
+      //
+      if(w == 100){
+        // serial_send(e);
+           printf("%d\n", e);
+         w =0;
+
+         if(e == 30){
+           e = 0;
+         }
+         e++;
+      }
+      w++;
+      clock_gettime(CLOCK_MONOTONIC , &finish);
+      finishUsec = finish.tv_nsec / 1000;
+
+      usleep(intervalMs * 1000 - (finishUsec - startUsec) - 100);
+
+      do{
+          clock_gettime(CLOCK_MONOTONIC , &finish) != 0;
+          finishUsec = finish.tv_nsec / 1000;
+      }while((finishUsec - startUsec) < intervalMs * 1000);
   }
 
   return 0;
