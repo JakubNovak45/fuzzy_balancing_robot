@@ -28,7 +28,7 @@ float t1,t2 = 0;
 /************************************************
 Function prototypes
 ************************************************/
-void timer_init(int period);
+//void timer_init(int period);
 
 /************************************************
 Main loop
@@ -37,8 +37,8 @@ int main()
 {
 
   //mpu6050_init(&fd);
-  //serial_init(19200, "/dev/ttyACM0");
-  serial_init(115200, "/dev/ttyUSB0");
+  serial_init(B115200, "/dev/ttyACM0");
+  //serial_init(115200, "/dev/ttyUSB0");
   //timer_init(10000);	//10ms period
 
 
@@ -67,7 +67,7 @@ int main()
 
       //
       if(w == 100){
-        // serial_send(e);
+           serial_send(e);
            printf("%d\n", e);
          w =0;
 
@@ -91,7 +91,7 @@ int main()
   return 0;
 }
 
-
+/*
 void timer_handler (int signum)
 {
   t2 = t1;
@@ -130,3 +130,4 @@ void timer_init(int period)
  setitimer (ITIMER_VIRTUAL, &timer, NULL);
  printf("timer init done!\n");
 }
+*/
