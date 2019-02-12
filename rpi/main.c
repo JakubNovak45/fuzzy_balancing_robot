@@ -37,10 +37,9 @@ int main()
 {
 
   //mpu6050_init(&fd);
-  serial_init(B115200, "/dev/ttyUSB0");
+  serial_init(B115200, "/dev/ttyACM0");
   //serial_init(115200, "/dev/ttyUSB0");
   //timer_init(10000);	//10ms period
-
 
   struct timespec start, finish;
   uint32_t startUsec, finishUsec;
@@ -87,7 +86,6 @@ int main()
           finishUsec = finish.tv_nsec / 1000;
       }while((finishUsec - startUsec) < intervalMs * 1000);
   }
-
   return 0;
 }
 

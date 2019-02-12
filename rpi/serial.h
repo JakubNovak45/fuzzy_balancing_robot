@@ -13,11 +13,9 @@ Includes
 #include <signal.h>
 #include <sys/time.h>
 #include <stdlib.h>
-
 /************************************************
 Global var
 ************************************************/
-char sendBuffer[32];
 int serialPort;
 /************************************************
 Function prototypes

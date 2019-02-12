@@ -31,7 +31,6 @@ float d0 = 6.7903;//592.8581;
 float d1 = -4.7301;//570.3108;
 int t =0;
 
-//String receiveBuffer = "";
 volatile bool Flag = false;
 int pos = 0;
 int z = 0;
@@ -47,6 +46,7 @@ void setup() {
   pinMode(MOTOR_2_ENC_A, INPUT);
   pinMode(MOTOR_2_ENC_B, INPUT);
 
+  Serial.setTimeout(1000000);
   Serial.begin(115200);
 
   MsTimer2::set(10, tim1); // 500ms period
@@ -160,24 +160,3 @@ void motor_2(int duty){
     analogWrite(MOTOR_2_LPWM, duty);
   }
 }
-/*
-char* inputString;
-bool stringComplete;
-
-void serialEvent() {
-  while (Serial.available()) {
-   int incomming_byte;
-    while ((incomming_byte = Serial.read()) != '\n') {
-    if(incomming_byte == 45){
-      receiveBuffer += '-';
-    }else{
-      receiveBuffer += incomming_byte -48;
-    }
-
-   }
-
-    w=receiveBuffer.toInt();
-   //Serial.println(receiveBuffer);
-   receiveBuffer = "";
-  }
-}*/
