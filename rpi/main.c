@@ -38,7 +38,7 @@ int main()
 
   //mpu6050_init(&fd);
   //serial_init(19200, "/dev/ttyACM0");
-  serial_init(19200, "/dev/ttyUSB0");
+  serial_init(115200, "/dev/ttyUSB0");
   //timer_init(10000);	//10ms period
 
 
