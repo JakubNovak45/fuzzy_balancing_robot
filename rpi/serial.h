@@ -12,6 +12,7 @@ Includes
 #include <termios.h>
 #include <signal.h>
 #include <sys/time.h>
+#include <stdlib.h>
 
 /************************************************
 Global var
