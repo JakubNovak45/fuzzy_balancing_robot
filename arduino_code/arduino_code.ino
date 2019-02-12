@@ -30,12 +30,10 @@ float d0 = 6.7903;//592.8581;
 float d1 = -4.7301;//570.3108;
 int t =0;
 
-
-String receiveBuffer = "";
+//String receiveBuffer = "";
 volatile bool Flag = false;
 int pos = 0;
 int z = 0;
-
 
 void setup() {
   pinMode(MOTOR_1_RPWM,OUTPUT);
@@ -48,7 +46,7 @@ void setup() {
   pinMode(MOTOR_2_ENC_A, INPUT);
   pinMode(MOTOR_2_ENC_B, INPUT);
 
-  Serial.begin(19200);
+  Serial.begin(115200);
 
   MsTimer2::set(10, tim1); // 500ms period
   MsTimer2::start();
@@ -58,15 +56,12 @@ void setup() {
 
   analogWrite(MOTOR_1_LPWM, 0);
   analogWrite(MOTOR_2_LPWM, 0);
-
 }
 
-
 void loop() {
-
   while (!Flag){}
   Flag = false;
-  serialEvent();
+  w = Serial.parseFloat();//serialEvent();
   if (w == 0){
     motor_1(0);
     motor_2(0);
@@ -79,7 +74,6 @@ void loop() {
     motor_1((int)-u0);
     motor_2((int)-u0);
   }
-
 }
 
 void encoder_m1() {
@@ -165,7 +159,7 @@ void motor_2(int duty){
     analogWrite(MOTOR_2_LPWM, duty);
   }
 }
-
+/*
 char* inputString;
 bool stringComplete;
 
@@ -185,4 +179,4 @@ void serialEvent() {
    //Serial.println(receiveBuffer);
    receiveBuffer = "";
   }
-}
+}*/
