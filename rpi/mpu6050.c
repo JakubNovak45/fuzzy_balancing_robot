@@ -33,7 +33,7 @@ int get_raw_xaccel(int *fd){
   return (int)xaccel;
 }
 
-float get_acc_angle(int *fd)
+float get_angle(int *fd)
 {
   float accX;
   float accY;
@@ -55,12 +55,11 @@ float get_acc_angle(int *fd)
   return angleAccY;
 }
 
-/*
-float get_gyro_x(int *fd)
+
+float get_gyro_y(int *fd)
 {
-int16_t xgyro = i2c_smbus_read_byte_data(fd, MPU_GYRO_XOUT1) << 8 |
-                i2c_smbus_read_byte_data(fd, MPU_GYRO_XOUT2);
-  	gyroX = ((float)rawGyroX) / 65.5;
+int16_t rawGyroY = i2c_smbus_read_byte_data(*fd, MPU_GYRO_YOUT) << 8 |
+                i2c_smbus_read_byte_data(*fd, MPU_GYRO_YOUT + 1);
+  	float gyroX = (((float)rawGyroY) / 65.5);
     return gyroX;
 }
-*/

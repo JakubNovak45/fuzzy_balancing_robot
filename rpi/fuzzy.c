@@ -53,7 +53,7 @@ FIS_TYPE fis_array_operation(FIS_TYPE *array, int size, _FIS_ARR_OP pfnOp)
 
 
 //***********************************************************************
-// Data for Fuzzy Inference System
+// Data for Fuzzy Inference System                                       
 //***********************************************************************
 // Pointers to the implementations of member functions
 _FIS_MF fis_gMF[] =
@@ -64,7 +64,7 @@ _FIS_MF fis_gMF[] =
 // Count of member function for each Input
 int fis_gIMFCount[] = { 5, 5 };
 
-// Count of member function for each Output
+// Count of member function for each Output 
 int fis_gOMFCount[] = { 5 };
 
 // Coefficients for the Input Member Functions
@@ -74,20 +74,20 @@ FIS_TYPE fis_gMFI0Coeff3[] = { 22.5, 45, 90, 90 };
 FIS_TYPE fis_gMFI0Coeff4[] = { -45, -22.5, 0 };
 FIS_TYPE fis_gMFI0Coeff5[] = { 0, 22.5, 45 };
 FIS_TYPE* fis_gMFI0Coeff[] = { fis_gMFI0Coeff1, fis_gMFI0Coeff2, fis_gMFI0Coeff3, fis_gMFI0Coeff4, fis_gMFI0Coeff5 };
-FIS_TYPE fis_gMFI1Coeff1[] = { -997.6, -997.6, -500.1, -250.1 };
-FIS_TYPE fis_gMFI1Coeff2[] = { -250, 0, 250 };
-FIS_TYPE fis_gMFI1Coeff3[] = { 250, 500, 1000, 1000 };
-FIS_TYPE fis_gMFI1Coeff4[] = { -500, -250, 0 };
-FIS_TYPE fis_gMFI1Coeff5[] = { 0, 250, 500 };
+FIS_TYPE fis_gMFI1Coeff1[] = { -698.3, -698.3, -350.1, -175.1 };
+FIS_TYPE fis_gMFI1Coeff2[] = { -175, 0, 175 };
+FIS_TYPE fis_gMFI1Coeff3[] = { 175, 350, 700, 700 };
+FIS_TYPE fis_gMFI1Coeff4[] = { -350, -175, 0 };
+FIS_TYPE fis_gMFI1Coeff5[] = { 0, 175, 350 };
 FIS_TYPE* fis_gMFI1Coeff[] = { fis_gMFI1Coeff1, fis_gMFI1Coeff2, fis_gMFI1Coeff3, fis_gMFI1Coeff4, fis_gMFI1Coeff5 };
 FIS_TYPE** fis_gMFICoeff[] = { fis_gMFI0Coeff, fis_gMFI1Coeff };
 
 // Coefficients for the Output Member Functions
-FIS_TYPE fis_gMFO0Coeff1[] = { -40, -26.67, -13.33 };
-FIS_TYPE fis_gMFO0Coeff2[] = { -13.33, 0, 13.33 };
-FIS_TYPE fis_gMFO0Coeff3[] = { 13.33, 26.67, 40 };
-FIS_TYPE fis_gMFO0Coeff4[] = { -26.67, -13.33, 0 };
-FIS_TYPE fis_gMFO0Coeff5[] = { 0, 13.33, 26.67 };
+FIS_TYPE fis_gMFO0Coeff1[] = { -30, -20, -10 };
+FIS_TYPE fis_gMFO0Coeff2[] = { -9.998, 0, 9.998 };
+FIS_TYPE fis_gMFO0Coeff3[] = { 10, 20, 30 };
+FIS_TYPE fis_gMFO0Coeff4[] = { -20, -9.998, 0 };
+FIS_TYPE fis_gMFO0Coeff5[] = { 0, 9.998, 20 };
 FIS_TYPE* fis_gMFO0Coeff[] = { fis_gMFO0Coeff1, fis_gMFO0Coeff2, fis_gMFO0Coeff3, fis_gMFO0Coeff4, fis_gMFO0Coeff5 };
 FIS_TYPE** fis_gMFOCoeff[] = { fis_gMFO0Coeff };
 
@@ -163,19 +163,19 @@ int fis_gRO24[] = { 3 };
 int* fis_gRO[] = { fis_gRO0, fis_gRO1, fis_gRO2, fis_gRO3, fis_gRO4, fis_gRO5, fis_gRO6, fis_gRO7, fis_gRO8, fis_gRO9, fis_gRO10, fis_gRO11, fis_gRO12, fis_gRO13, fis_gRO14, fis_gRO15, fis_gRO16, fis_gRO17, fis_gRO18, fis_gRO19, fis_gRO20, fis_gRO21, fis_gRO22, fis_gRO23, fis_gRO24 };
 
 // Input range Min
-FIS_TYPE fis_gIMin[] = { -45, -500 };
+FIS_TYPE fis_gIMin[] = { -45, -350 };
 
 // Input range Max
-FIS_TYPE fis_gIMax[] = { 45, 500 };
+FIS_TYPE fis_gIMax[] = { 45, 350 };
 
 // Output range Min
-FIS_TYPE fis_gOMin[] = { -40 };
+FIS_TYPE fis_gOMin[] = { -30 };
 
 // Output range Max
-FIS_TYPE fis_gOMax[] = { 40 };
+FIS_TYPE fis_gOMax[] = { 30 };
 
 //***********************************************************************
-// Data dependent support functions for Fuzzy Inference System
+// Data dependent support functions for Fuzzy Inference System           
 //***********************************************************************
 FIS_TYPE fis_MF_out(FIS_TYPE** fuzzyRuleSet, FIS_TYPE x, int o)
 {
@@ -225,7 +225,7 @@ FIS_TYPE fis_defuzz_centroid(FIS_TYPE** fuzzyRuleSet, int o)
 }
 
 //***********************************************************************
-// Fuzzy Inference System
+// Fuzzy Inference System                                                
 //***********************************************************************
 void fis_evaluate()
 {

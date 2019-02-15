@@ -43,6 +43,7 @@ Function prototypes
 ************************************************/
 void mpu6050_init(int *fd);
 int get_raw_xaccel(int *fd);
-float get_acc_angle(int *fd);
+float get_gyro_y(int *fd);
+float get_angle(int *fd);
 
 #endif

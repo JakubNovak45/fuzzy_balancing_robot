@@ -1,0 +1,69 @@
+[System]
+Name='fuzzy'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=25
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='e'
+Range=[-45 45]
+NumMFs=5
+MF1='neglar':'trapmf',[-90 -90 -45 -22.5]
+MF2='zero':'trimf',[-22.5 0 22.5]
+MF3='poslar':'trapmf',[22.5 45 90 90]
+MF4='negsma':'trimf',[-45 -22.5 0]
+MF5='possma':'trimf',[0 22.5 45]
+
+[Input2]
+Name='de'
+Range=[-350 350]
+NumMFs=5
+MF1='neglar':'trapmf',[-698.3 -698.3 -350.1 -175.1]
+MF2='zero':'trimf',[-175 0 175]
+MF3='poslar':'trapmf',[175 350 700 700]
+MF4='negsma':'trimf',[-350 -175 0]
+MF5='possma':'trimf',[0 175 350]
+
+[Output1]
+Name='u'
+Range=[-30 30]
+NumMFs=5
+MF1='neglar':'trimf',[-30 -20 -10]
+MF2='zero':'trimf',[-9.998 0 9.998]
+MF3='poslar':'trimf',[10 20 30]
+MF4='negsma':'trimf',[-20 -9.998 0]
+MF5='possma':'trimf',[0 9.998 20]
+
+[Rules]
+1 1, 1 (1) : 1
+1 4, 1 (1) : 1
+1 2, 1 (1) : 1
+1 5, 4 (1) : 1
+1 3, 2 (1) : 1
+4 1, 1 (1) : 1
+4 4, 1 (1) : 1
+4 2, 4 (1) : 1
+4 5, 2 (1) : 1
+4 3, 5 (1) : 1
+2 1, 1 (1) : 1
+2 4, 4 (1) : 1
+2 2, 2 (1) : 1
+2 5, 5 (1) : 1
+2 3, 3 (1) : 1
+5 1, 4 (1) : 1
+5 4, 2 (1) : 1
+5 2, 5 (1) : 1
+5 5, 3 (1) : 1
+5 3, 3 (1) : 1
+3 1, 2 (1) : 1
+3 4, 5 (1) : 1
+3 2, 3 (1) : 1
+3 5, 3 (1) : 1
+3 3, 3 (1) : 1
