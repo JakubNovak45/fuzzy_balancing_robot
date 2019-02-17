@@ -10,8 +10,8 @@
 #define MOTOR_2_ENC_A   3
 #define MOTOR_2_ENC_B   8
 
-float P = 14.5;
-float Ti = 0.145;
+float P = 13;
+float Ti = 0.13;
 float Ts = 0.01;
 
 float w = 0;
