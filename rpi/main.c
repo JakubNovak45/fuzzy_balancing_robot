@@ -7,21 +7,19 @@ Includes
 #include "mpu6050.h"
 #include "serial.h"
 
-#define GYRO_DRIFT	18.405
-
 int fd;
-float angleY, gyroY, fuzzyOutput;
+float angleY, gyroY, fuzzyOutput, gyroYOffset;
 
 int main()
 {
  serial_init(B115200, "/dev/ttyUSB0");
- mpu6050_init(&fd);
+ gyroYOffset = mpu6050_init(&fd);
 
  while(1)
  {
   //test_spin();
   angleY = get_angle(&fd);
-  gyroY = get_gyro_y(&fd) + GYRO_DRIFT;
+  gyroY = get_gyro_y(&fd) - gyroYOffset;
   //fuzzy
   if(angleY < 45 && angleY > -45)
   {

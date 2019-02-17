@@ -3,11 +3,12 @@ Includes
 ************************************************/
 #include "mpu6050.h"
 
-void mpu6050_init(int *fd)
+float mpu6050_init(int *fd)
 {
-
   char *fileName = "/dev/i2c-1";
   int  address = 0x68;
+  float y = 0;
+  int16_t ry;
 
   if ((*fd = open(fileName, O_RDWR)) < 0) {
       printf("Failed to open i2c port\n");
@@ -23,7 +24,14 @@ void mpu6050_init(int *fd)
   i2c_smbus_write_byte_data(*fd, MPU_CONFIG, 0x06);		//filter 5Hz
   int8_t power = i2c_smbus_read_byte_data(*fd, MPU_POWER1);
   i2c_smbus_write_byte_data(*fd, MPU_POWER1, ~(1 << 6) & power);
+  printf("Calibrating Gyro Y, dont move the device\n");
+
+  ry = i2c_smbus_read_byte_data(*fd, MPU_GYRO_YOUT) << 8 |
+       i2c_smbus_read_byte_data(*fd, MPU_GYRO_YOUT + 1);
+  y += ((float) ry) / 65.5;
+  printf("offset Y: %f\n", y);
   printf("MPU6050 init done!\n");
+  return (y);
 }
 
 int get_raw_xaccel(int *fd){
@@ -63,3 +71,5 @@ int16_t rawGyroY = i2c_smbus_read_byte_data(*fd, MPU_GYRO_YOUT) << 8 |
   	float gyroX = (((float)rawGyroY) / 65.5);
     return gyroX;
 }
+
+

@@ -10,8 +10,8 @@
 #define MOTOR_2_ENC_A   3
 #define MOTOR_2_ENC_B   8
 
-float P = 12.5;
-float I = 0.125;
+float P = 14.5;
+float Ti = 0.145;
 float Ts = 0.01;
 
 float w = 0;
@@ -53,7 +53,7 @@ void loop() {
   if (w != 0)
   {
     e0 = w - cpp_m1;
-    u0 = u1 +  (P + (Ts / (1/I))) * e0 + (-P) * e1;
+    u0 = u1 +  (P + (Ts / Ti)) * e0 + (-P) * e1;
     e1 = e0;
     u1 = u0;
     motor((int) u0);
