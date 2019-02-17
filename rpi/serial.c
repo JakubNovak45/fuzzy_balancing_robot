@@ -13,6 +13,10 @@ void serial_init(int baudrate, char* port)
   }
 
   struct termios options;
+  if (tcgetattr(serialPort, &options) != 0) {
+	perror("tcgetattr");
+    exit(1);
+  }
   cfmakeraw(&options); // vynulovat strukturu na RAW (zadne prevody newlines atd)
   cfsetspeed(&options, baudrate); // input a output speed je stejny
   if(tcsetattr(serialPort, TCSAFLUSH, &options) != 0) {
