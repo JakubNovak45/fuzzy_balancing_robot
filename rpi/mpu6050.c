@@ -25,15 +25,15 @@ float mpu6050_init(int *fd)
   int8_t power = i2c_smbus_read_byte_data(*fd, MPU_POWER1);
   i2c_smbus_write_byte_data(*fd, MPU_POWER1, ~(1 << 6) & power);
   printf("Calibrating Gyro Y, dont move the device\n");
-  for(int i = 0; i < 100; i++)
+  for(int i = 0; i < 500; i++)
   {
     ry = i2c_smbus_read_byte_data(*fd, MPU_GYRO_YOUT) << 8 |
          i2c_smbus_read_byte_data(*fd, MPU_GYRO_YOUT + 1);
     y += ((float) ry) / 65.5;
   }
-  printf("offset Y: %f\n", y / 100.0);
+  printf("offset Y: %f\n", y / 500.0);
   printf("MPU6050 init done!\n");
-  return (y / 100.0);
+  return (y / 500.0);
 }
 
 int get_raw_xaccel(int *fd){

@@ -38,6 +38,7 @@ int main()
   }
   usleep(100000);
  }
+ close(fd);
  return 0;
 }
 
